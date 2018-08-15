@@ -26,7 +26,7 @@ for i in sorted(list_of_read_files):
 		#print prefix
 		seen_set.add(prefix)
 
-# add for modified santis db: "-d", "sarah.fasta"
+# add for different db: "-d", "name.fasta"
 for i in sorted(seen_set):
     left = i + "_R1_001.fastq.gz"
     right = i + "_R2_001.fastq.gz"
@@ -34,7 +34,7 @@ for i in sorted(seen_set):
                          "-l", left,
                          "-r", right,
                          "--thread",
-                         "32"])
+                         "16"])#,"--cleanup", "NO"])
     print(commmand)
     pipe = subprocess.run(commmand, shell=True,
                           stdout=subprocess.PIPE,
@@ -63,6 +63,7 @@ for i in sorted(seen_set):
                    "temp"]
     for unwanted in remove_list:
         try:
+            # pass
             os.remove(unwanted)
         except:
             pass

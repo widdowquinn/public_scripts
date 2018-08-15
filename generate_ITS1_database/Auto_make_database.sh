@@ -10,8 +10,8 @@ cd $HOME/public_scripts/generate_ITS1_database
 
 ###############################################################################
 # PUT the db file name here
-DATA_TAB_FILE="Phytophthora_ITS1_DB_v0.005_20180515.txt"
-version="0.005"
+DATA_TAB_FILE="Phytophthora_ITS1_DB_v0.006_20180620.txt"
+version="0.006"
 #
 ###############################################################################
 
@@ -143,6 +143,15 @@ ITS_cmd="python ./bin/rewrite_as_fasta.py
 echo ${ITS_cmd}
 eval ${ITS_cmd}
 wait
+
+# STEP 8 add the synthetic control sequences:
+echo "add the synthetic control sequences"
+controls_cmd="cat Phytophora_ITS_database_v${version}.fasta ./bin/random_synthestic_controls.fasta > db_controls.fasta"
+echo ${controls_cmd}
+eval ${controls_cmd}
+wait
+
+mv db_controls.fasta Phytophora_ITS_database_v${version}.fasta
 
 rm temp.fasta
 rm temp_v${version}.fasta
